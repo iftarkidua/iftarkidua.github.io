@@ -13,7 +13,96 @@
             padding: 20px;
             background-color: #f5e6ca;
         }
+/* Header Styles */
+        .header {
+            background-color: #2c5934;
+            padding: 1rem;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
 
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo {
+            color: white;
+            font-size: 1.5rem;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        /* Navigation Menu */
+        .nav-menu {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-menu li {
+            margin-left: 2rem;
+        }
+
+        .nav-menu a {
+            color: white;
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: color 0.3s ease;
+        }
+
+        .nav-menu a:hover {
+            color: #c5e1a5;
+        }
+
+        /* Hamburger Menu */
+        .hamburger {
+            display: none;
+            cursor: pointer;
+            color: white;
+            font-size: 1.5rem;
+        }
+ /* Responsive Styles */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: block;
+            }
+
+            .nav-menu {
+                display: none;
+                width: 100%;
+                position: absolute;
+                top: 100%;
+                left: 0;
+                background-color: #2c5934;
+                padding: 1rem;
+                flex-direction: column;
+            }
+
+            .nav-menu.active {
+                display: flex;
+            }
+
+            .nav-menu li {
+                margin: 1rem 0;
+                text-align: center;
+            }
+
+            .logo img {
+                height: 30px;
+            }
+        }
         .container {
             max-width: 800px;
             margin: 0 auto;
@@ -84,6 +173,24 @@
     </style>
 </head>
 <body>
+    <header class="header">
+        <nav class="nav-container">
+            <a href="#" class="logo">
+                <img src="logo.png" alt="Dua Logo">
+                Iftaar Dua
+            </a>
+            
+            <ul class="nav-menu">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#duas">Duas</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            
+            <div class="hamburger">☰</div>
+        </nav>
+    </header>
+
     <div class="container">
         <h1>Iftaar Dua in Different Languages</h1>
 
@@ -213,6 +320,21 @@
     </div>
 
     <script>
+        // Mobile Menu Toggle
+        const hamburger = document.querySelector('.hamburger');
+        const navMenu = document.querySelector('.nav-menu');
+
+        hamburger.addEventListener('click', () => {
+            navMenu.classList.toggle('active');
+        });
+
+        // Close menu on click outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.nav-container')) {
+                navMenu.classList.remove('active');
+            }
+        });
+
         // Language detection and reordering
         const userLang = navigator.language || navigator.userLanguage;
         const mainLang = userLang.split('-')[0].toLowerCase();
